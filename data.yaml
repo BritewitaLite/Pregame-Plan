@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 5
+names: ['Line', 'Ref', 'center', 'qb', 'skill']
+
+roboflow:
+  workspace: pregame-planner
+  project: pre-game-planner
+  version: 5
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/pregame-planner/pre-game-planner/dataset/5
