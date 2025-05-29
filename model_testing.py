@@ -7,15 +7,12 @@ from ultralytics import YOLO
 
 
 # Pre-defined variables
-path = "/Scouting_Report"
+path = "/Scouting_Report_Clone/Pregame-Plan"
 video_path = os.path.join(path, "input_videos", "Test_vid.mp4")
-model_path = os.path.join(path, "runs", "detect", "train", "weights","best.pt")
+model_path = os.path.join(path, "runs", "detect", "train2", "weights","best.pt")
 confidence_thresh = .7
 
-# Set device to gpu
-device = "0" if torch.cuda.is_available() else "cpu"
-if device == "0":
-    torch.cuda.set_device(0)
+
 
 # Model path
 model = YOLO(model_path)

@@ -1,8 +1,8 @@
 
-Pre-Game Planner - v5 2025-02-21 11:10pm
+Pre-Game Planner - v6 2025-03-09 4:16pm
 ==============================
 
-This dataset was exported via roboflow.com on February 22, 2025 at 10:05 PM GMT
+This dataset was exported via roboflow.com on March 9, 2025 at 8:17 PM GMT
 
 Roboflow is an end-to-end computer vision platform that helps you
 * collaborate with your team on computer vision projects
@@ -17,8 +17,8 @@ visit https://github.com/roboflow/notebooks
 
 To find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com
 
-The dataset includes 3969 images.
-Football are annotated in YOLOv11 format.
+The dataset includes 301 images.
+Football are annotated in YOLOv8 format.
 
 The following pre-processing was applied to each image:
 * Auto-orientation of pixel data (with EXIF-orientation stripping)
