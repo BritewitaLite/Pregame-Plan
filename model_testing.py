@@ -9,8 +9,8 @@ from ultralytics import YOLO
 # Pre-defined variables
 path = "/Scouting_Report_Clone/Pregame-Plan"
 video_path = os.path.join(path, "input_videos", "Test_vid.mp4")
-model_path = os.path.join(path, "runs", "detect", "train2", "weights","best.pt")
-confidence_thresh = .7
+model_path = os.path.join(path, "runs", "detect", "train4", "weights","best.pt")
+confidence_thresh = .65
 
 
 
@@ -27,7 +27,7 @@ class Tracker:
 
     # Process the video results
     def player_tracking(self):
-        results = model.predict(self.video_path, save=True, device='0')
+        results = model.predict(self.video_path, conf=.95, save=True, device='0')
         return results
 
 

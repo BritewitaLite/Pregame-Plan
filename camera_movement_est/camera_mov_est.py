@@ -8,7 +8,7 @@ from utils import measure_distance, measure_xy_distance
 
 class CameraMovementEstimator:
 
-    def __init__(self, frame,):
+    def __init__(self, frame):
 
         self.minimum_distance = 5
 
@@ -25,10 +25,10 @@ class CameraMovementEstimator:
 
         self.features = dict(
             maxCorners = 100,
-            qaulityLevel = 0.3,
+            qualityLevel = 0.3,
             minDistance = 3,
-            blockSize = 7,
-            mask = mask_features
+            mask = mask_features,
+            blockSize = 7
         )
 
     def get_camera_movement(self, frames, read_from_stub = False, stub_path = None):
@@ -42,6 +42,10 @@ class CameraMovementEstimator:
         # taking from the orig image and converting to gray and getting features to produce new frame
         old_gray_img = cv2.cvtColor(frames[0], cv2.COLOR_BGR2GRAY)
         old_features = cv2.goodFeaturesToTrack(old_gray_img, **self.features)
+
+        if old_features is None:
+            print("[WARNING] No features found in first frame.")
+            return camera_movement
 
         for frame_num in range(1, len(frames)):
             frame_gray = cv2.cvtColor(frames[frame_num], cv2.COLOR_BGR2GRAY)
@@ -63,7 +67,7 @@ class CameraMovementEstimator:
                 camera_movement[frame_num] = [camera_movement_x, camera_movement_y]
                 old_features = cv2.goodFeaturesToTrack(frame_gray, **self.features)
 
-            old_gray = frame_gray.copy()
+            old_gray_img = frame_gray.copy()
 
         if stub_path is not None:
             with open(stub_path, 'wb') as f:
@@ -80,7 +84,7 @@ class CameraMovementEstimator:
             overlay = frame.copy()
             cv2.rectangle(overlay,(0,0),(500,100),(255,255,255),-1)
             alpha = 0.6
-            cv2.addweighted(overlay, alpha, frame, 1-alpha, 0, frame)
+            cv2.addWeighted(overlay, alpha, frame, 1-alpha, 0, frame)
 
             x_movement, y_movement = camera_movement_per_frame[frame_numn]
             frame = cv2.putText(frame,f"camera movement X: {x_movement:.2f}", (10,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,0), 3)
