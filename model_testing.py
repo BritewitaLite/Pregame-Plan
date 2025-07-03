@@ -7,15 +7,12 @@ from ultralytics import YOLO
 
 
 # Pre-defined variables
-path = "/Scouting_Report"
+path = "/Scouting_Report_Clone/Pregame-Plan"
 video_path = os.path.join(path, "input_videos", "Test_vid.mp4")
-model_path = os.path.join(path, "runs", "detect", "train", "weights","best.pt")
-confidence_thresh = .7
+model_path = os.path.join(path, "runs", "detect", "train4", "weights","best.pt")
+confidence_thresh = .65
 
-# Set device to gpu
-device = "0" if torch.cuda.is_available() else "cpu"
-if device == "0":
-    torch.cuda.set_device(0)
+
 
 # Model path
 model = YOLO(model_path)
@@ -30,7 +27,7 @@ class Tracker:
 
     # Process the video results
     def player_tracking(self):
-        results = model.predict(self.video_path, save=True, device='0')
+        results = model.predict(self.video_path, conf=.95, save=True, device='0')
         return results
 
 
