@@ -1,8 +1,8 @@
 
-Pre-Game Planner - v7 2025-06-29 8:56pm
+KeyPoint Football Field - v7 2026-03-25 2:02pm
 ==============================
 
-This dataset was exported via roboflow.com on June 30, 2025 at 1:02 AM GMT
+This dataset was exported via roboflow.com on March 25, 2026 at 6:05 PM GMT
 
 Roboflow is an end-to-end computer vision platform that helps you
 * collaborate with your team on computer vision projects
@@ -17,15 +17,13 @@ visit https://github.com/roboflow/notebooks
 
 To find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com
 
-The dataset includes 3892 images.
-Football are annotated in YOLOv8 format.
+The dataset includes 762 images.
+Lines-Hashes are annotated in YOLOv8 format.
 
 The following pre-processing was applied to each image:
 * Auto-orientation of pixel data (with EXIF-orientation stripping)
 * Resize to 640x640 (Stretch)
 
-The following augmentation was applied to create 3 versions of each source image:
-* Random brigthness adjustment of between -22 and +22 percent
-* Random Gaussian blur of between 0 and 1.5 pixels
+No image augmentation techniques were applied.
 
 

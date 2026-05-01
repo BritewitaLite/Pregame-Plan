@@ -5,6 +5,7 @@ import os
 import sys
 sys.path.append('../')
 from utils import measure_distance, measure_xy_distance
+from utils import save_stub, read_stub
 
 class CameraMovementEstimator:
 
@@ -33,9 +34,12 @@ class CameraMovementEstimator:
 
     def get_camera_movement(self, frames, read_from_stub = False, stub_path = None):
         #read the stub
-        if read_from_stub and stub_path is not None and os.path.exists(stub_path):
-            with open(stub_path, 'rb') as f:
-                return pickle.load(f)
+        camera_movement = read_stub(read_from_stub, stub_path)
+
+        #keeps us from running this again if the stub_path exists
+        if camera_movement is not None:
+            if len(camera_movement) == len(frames):
+                return camera_movement
 
         camera_movement = [[0,0]]*len(frames)
 
@@ -69,9 +73,7 @@ class CameraMovementEstimator:
 
             old_gray_img = frame_gray.copy()
 
-        if stub_path is not None:
-            with open(stub_path, 'wb') as f:
-                pickle.dump(camera_movement, f)
+        save_stub(stub_path, camera_movement)
 
         return camera_movement
     
