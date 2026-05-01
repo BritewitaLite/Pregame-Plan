@@ -6,6 +6,7 @@ import os
 import sys
 sys.path.append('../')
 from utils import get_center_of_bbox, get_bbox_width
+from utils import save_stub, read_stub
 
 class Tracker:
 
@@ -27,10 +28,12 @@ class Tracker:
     classification for the rest of the frames'''
     def get_object_tracks(self, frames, read_from_stub=False, stub_path=None):
     
+        tracks = read_stub(read_from_stub, stub_path)
+
         #keeps us from running this again if the stub_path exists
-        if read_from_stub and stub_path is not None and os.path.exists(stub_path):
-            with open(stub_path, 'rb') as f:
-                return pickle.load(f)
+        if tracks is not None:
+            if len(tracks) == len(frames):
+                return tracks
 
         detections = self.detect_frames(frames)
 
@@ -133,9 +136,7 @@ class Tracker:
                         tracks[class_name][frame_num][track_id] = {"bbox": bbox}
                         break
 
-        if stub_path is not None:
-            with open(stub_path, 'wb') as f:
-                pickle.dump(tracks, f)
+        save_stub(stub_path, tracks)
 
 
         return tracks

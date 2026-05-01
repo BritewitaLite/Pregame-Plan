@@ -3,14 +3,22 @@ import numpy as np
 from utils import read_video, save_video
 from trackers import Tracker
 from camera_movement_est.camera_mov_est import CameraMovementEstimator
+from field_keypoint_detector import FieldKeypointDetector, FieldKeypointAnnotator
 
 def main():
     # read video
-    video_frames = read_video('input_videos/Test_vid.mp4')
+    video_frames = read_video('input_videos/test2.mp4')
 
     #initialize tracker
-    tracker = Tracker('runs/detect/train4/weights/best.pt')
-    tracks = tracker.get_object_tracks(video_frames, read_from_stub=True, stub_path='stubs/track_stubs1.pk1')
+    tracker = Tracker('models/player_detector.pt')
+
+    #initialize field keypoint detector
+    field_keypoint_detector = FieldKeypointDetector('models/field_keypoints_detector_v1.pt')
+    field_keypoint_detector1 = FieldKeypointAnnotator()
+
+
+    tracks = tracker.get_object_tracks(video_frames, read_from_stub=True, stub_path='stubs/track_stubs2.pk1')
+    field_keypoints = field_keypoint_detector.get_field_keypoints(video_frames, read_from_stub=True, stub_path='stubs/field_keypoints_stubs2.pk1')
 
     #camera movement estimator
     camera_movement_estimator = CameraMovementEstimator(video_frames[0])
@@ -28,12 +36,14 @@ def main():
 
     #draw object tracked
     output_video_frames = tracker.draw_annotations(video_frames, tracks)
+    #draw field keypoints
+    output_video_frames = field_keypoint_detector1.draw(output_video_frames, field_keypoints)
 
     #draw camera movement
     output_video_frames = camera_movement_estimator.draw_camera_movement(output_video_frames, camera_movement_per_frame)
 
     # save video
-    save_video(output_video_frames, 'output_videos/output_video2.avi')
+    save_video(output_video_frames, 'output_videos/output_video1.avi')
     
 
 if __name__ == '__main__':
