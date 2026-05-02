@@ -48,3 +48,5 @@ Strategy for Development
           -  The reason this is last as well is being the blocking will have to be trained to the users imput on what kind of defense they run
           -  If the film is against a 3-4 but they run a 4-3 then the AI needs to change the blocking scheme for how they would block against that
 
+Website remaining Steps
+- purchase domain for email notifications and phone notificaiton to join teams
