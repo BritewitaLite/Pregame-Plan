@@ -51,3 +51,4 @@ Strategy for Development
 Website remaining Steps
 - purchase domain for email notifications and phone notificaiton to join teams
 - Coaches should be able to transfer ownership allowing a new coach to be the owner and for them to have to pay for the plan so when someone is no longer a part of the oorganization it doesn't have to be setup from scratch again
+- Need an admin account for actual testing
