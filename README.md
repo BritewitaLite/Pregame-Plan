@@ -56,3 +56,4 @@ Website remaining Steps
 - Coaches should not be able to be a player as well within the same org
 - fix notifications from being doubled
 - Add an actual playcard on the title page
+- next step for playcard is after creating it should be able to be added to a playbook
