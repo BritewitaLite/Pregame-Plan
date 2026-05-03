@@ -54,3 +54,5 @@ Website remaining Steps
 - Need an admin account for actual testing
 - teams that are archived should have a cooldown from being moved back to active
 - Coaches should not be able to be a player as well within the same org
+- fix notifications from being doubled
+- Add an actual playcard on the title page
