@@ -56,4 +56,6 @@ Website remaining Steps
 - Coaches should not be able to be a player as well within the same org
 - fix notifications from being doubled
 - Add an actual playcard on the title page
-- next step for playcard is after creating it should be able to be added to a playbook
+- next step for playcard is after creating it should be published to a playbook before other coaches can view and edit it
+- Players shouldn't be abel to see the playcard created by the coach until the playbook is shared with the team
+- Players see the preview of the playcard but clicking it should open it up to a larger screen for viewing
