@@ -54,8 +54,8 @@ Website remaining Steps
 - Need an admin account for actual testing
 - teams that are archived should have a cooldown from being moved back to active
 - Coaches should not be able to be a player as well within the same org
-- fix notifications from being doubled
 - Add an actual playcard on the title page
-- next step for playcard is after creating it should be published to a playbook before other coaches can view and edit it
-- Players shouldn't be abel to see the playcard created by the coach until the playbook is shared with the team
-- Players see the preview of the playcard but clicking it should open it up to a larger screen for viewing
+- Don't let editing window be shortened when selecting the different field options
+- Be able to edit player colors and route colors
+- Add premade play formations
+- Add a settings page. One org option should be to turn off player to coach/coach to player PM's
