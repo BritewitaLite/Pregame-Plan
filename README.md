@@ -59,5 +59,5 @@ Website remaining Steps
 - Be able to edit player colors and route colors
 - Add premade play formations
 - Premade Route Slection
-- Add a settings page. One org option should be to turn off player to coach/coach to player PM's, changing passwords, etc.
+- Move the play card editors to the left of the playcard and shrink the spacing between the container objects for play name, formations, notes, and tag so that less scrolling is needed to go up and down the page.
   
