@@ -19,8 +19,8 @@ Usage
 -----
     from playcard_renderer import PlaycardRenderer
 
-    renderer = PlaycardRenderer(team_a_color=(220, 50, 50),   # BGR red  – offense
-                                team_b_color=(50, 100, 220),  # BGR blue – defense
+    renderer = PlaycardRenderer(team_a_color=(50, 100, 220),   # BGR blue  – offense
+                                team_b_color=(220, 50, 50),    # BGR red   – defense
                                 ball_color=(255, 200, 0))
 
     # Generate one composite frame
@@ -67,8 +67,8 @@ class PlaycardRenderer:
 
     def __init__(
         self,
-        team_a_color: Tuple[int,int,int] = (220,  50,  50),   # offense BGR
-        team_b_color: Tuple[int,int,int] = ( 50, 100, 220),   # defense BGR
+        team_a_color: Tuple[int,int,int] = (50, 100, 220),    # offense BGR (blue)
+        team_b_color: Tuple[int,int,int] = (220, 50, 50),     # defense BGR (red)
         ball_color:   Tuple[int,int,int] = (  0, 200, 255),
         player_radius: int = 9,
         trail_length:  int = 20,        # frames of movement trail to draw

@@ -44,8 +44,8 @@ def main():
 
     # ── 5. Build the play card renderer ─────────────────────────────────────
     renderer = PlaycardRenderer(
-        team_a_color=(220,  50,  50),   # red  – assign to offense or home team
-        team_b_color=( 50, 100, 220),   # blue – defense / away team
+        team_a_color=(50, 100, 220),    # blue – assign to offense or home team
+        team_b_color=(220, 50, 50),     # red  – defense / away team
         ball_color  =(  0, 200, 255),   # yellow-ish ball dot
         player_radius=9,
         trail_length=25,                # how many frames of movement trail

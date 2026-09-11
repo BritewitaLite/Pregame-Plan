@@ -3,7 +3,7 @@ import numpy as np
 from utils import read_video, save_video
 from trackers import Tracker
 from camera_movement_est.camera_mov_est import CameraMovementEstimator
-from field_keypoint_detector import FieldKeypointDetector, FieldKeypointAnnotator
+#from field_keypoint_detector import FieldKeypointDetector, FieldKeypointAnnotator
 from hough_detector.hough_field_homography import build_hough_mapper, HoughFieldAnnotator
 from hough_detector.main_hough import main as hough_main
 from playcard_render.playcard_renderer import PlaycardRenderer, save_playcard_snapshot
@@ -17,15 +17,15 @@ def main():
     tracker = Tracker('models/player_detector.pt')
 
     #initialize field keypoint detector
-    field_keypoint_detector = FieldKeypointDetector('models/field_keypoints_detector_v1.pt')
-    field_keypoint_detector1 = FieldKeypointAnnotator()
+    #field_keypoint_detector = FieldKeypointDetector('models/field_keypoints_detector_v1.pt')
+    #field_keypoint_detector1 = FieldKeypointAnnotator()
 
     hough_main()   # run the Hough homography code to generate the homography stubs (and print example pixel→field mapping)
     playcard_main() # run the play card renderer code to generate the play card video stubs (and print example pixel→field mapping)
 
 
     tracks = tracker.get_object_tracks(video_frames, read_from_stub=True, stub_path='stubs/track_stubs2.pk1')
-    field_keypoints = field_keypoint_detector.get_field_keypoints(video_frames, read_from_stub=True, stub_path='stubs/field_keypoints_stubs2.pk1')
+    #field_keypoints = field_keypoint_detector.get_field_keypoints(video_frames, read_from_stub=True, stub_path='stubs/field_keypoints_stubs2.pk1')
 
     #camera movement estimator
     camera_movement_estimator = CameraMovementEstimator(video_frames[0])
@@ -44,7 +44,7 @@ def main():
     #draw object tracked
     output_video_frames = tracker.draw_annotations(video_frames, tracks)
     #draw field keypoints
-    output_video_frames = field_keypoint_detector1.draw(output_video_frames, field_keypoints)
+    #output_video_frames = field_keypoint_detector1.draw(output_video_frames, field_keypoints)
 
     #draw camera movement
     output_video_frames = camera_movement_estimator.draw_camera_movement(output_video_frames, camera_movement_per_frame)

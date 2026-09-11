@@ -172,63 +172,40 @@ class Tracker:
         for frame_num, frame in enumerate(video_frames):
             frame = frame.copy()
 
-            c_dict = tracks["C"][frame_num]
-            db_dict = tracks["DB"][frame_num]
-            dline_dict = tracks["DLine"][frame_num]
-            fb_dict = tracks["FB"][frame_num]
-            g_dict = tracks["G"][frame_num]
-            lb_dict = tracks["LB"][frame_num]
-            #presnap_dict = tracks["PreSnap"][frame_num]
-            qb_dict = tracks["QB"][frame_num]
-            rb_dict = tracks["RB"][frame_num]
-            ref_dict = tracks["Ref"][frame_num]
-            s_dict = tracks["S"][frame_num]
-            t_dict = tracks["T"][frame_num]
-            te_dict = tracks["TE"][frame_num]
-            wr_dict = tracks["WR"][frame_num]
+            # Role mapping provided by user: offense/defense/neutral
+            ROLE_MAP = {
+                "C": "offense",
+                "DB": "defense",
+                "DLine": "defense",
+                "FB": "offense",
+                "G": "offense",
+                "LB": "defense",
+                "PreSnap": "neutral",
+                "QB": "offense",
+                "RB": "offense",
+                "Ref": "neutral",
+                "S": "defense",
+                "T": "offense",
+                "TE": "offense",
+                "WR": "offense",
+            }
 
-            # draw players
-            for track_id, c in c_dict.items():
-                frame = self.draw_ellipse(frame, c["bbox"], (0,0,255), track_id)
+            # BGR colors: offense = blue, defense = red, neutral = white
+            COLOR_BY_ROLE = {
+                "offense": (50, 100, 220),   # blue-ish BGR
+                "defense": (220, 50, 50),    # red BGR
+                "neutral": (255, 255, 255),  # white
+            }
 
-            for track_id, db in db_dict.items():
-                frame = self.draw_ellipse(frame, db["bbox"], (0,255,255), track_id)
-
-            for track_id, dline in dline_dict.items():
-                frame = self.draw_ellipse(frame, dline["bbox"], (0,255,0), track_id)
-
-            for track_id, fb in fb_dict.items():
-                frame = self.draw_ellipse(frame, fb["bbox"], (255,255,255), track_id)
-
-            for track_id, g in g_dict.items():
-                frame = self.draw_ellipse(frame, g["bbox"], (102,255,178), track_id)
-
-            for track_id, lb in lb_dict.items():
-                frame = self.draw_ellipse(frame, lb["bbox"], (160,82,45), track_id)
-
-            #for track_id, presnap in presnap_dict.items():
-                #frame = self.draw_ellipse(frame, presnap["bbox"], (0,0,0), track_id)
-
-            for track_id, qb in qb_dict.items():
-                frame = self.draw_ellipse(frame, qb["bbox"], (255,0,0), track_id)
-
-            for track_id, rb in rb_dict.items():
-                frame = self.draw_ellipse(frame, rb["bbox"], (255,0,255), track_id)
-
-            for track_id, ref in ref_dict.items():
-                frame = self.draw_ellipse(frame, ref["bbox"], (0,76,153), track_id)
-
-            for track_id, s in s_dict.items():
-                frame = self.draw_ellipse(frame, s["bbox"], (153,51,255), track_id)
-
-            for track_id, t in t_dict.items():
-                frame = self.draw_ellipse(frame, t["bbox"], (0,153,153), track_id)
-
-            for track_id, te in te_dict.items():
-                frame = self.draw_ellipse(frame, te["bbox"], (160,160,160), track_id)
-
-            for track_id, wr in wr_dict.items():
-                frame = self.draw_ellipse(frame, wr["bbox"], (255,102,178), track_id)
+            # Iterate all classes generically and draw with role color
+            for class_name, frames_list in tracks.items():
+                if frame_num >= len(frames_list):
+                    continue
+                obj_dict = frames_list[frame_num]
+                role = ROLE_MAP.get(class_name, "neutral")
+                color = COLOR_BY_ROLE.get(role, (255, 255, 255))
+                for track_id, obj in obj_dict.items():
+                    frame = self.draw_ellipse(frame, obj["bbox"], color, track_id)
 
             output_video_frames.append(frame)
 
