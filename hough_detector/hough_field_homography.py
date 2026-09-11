@@ -145,7 +145,37 @@ class HoughFieldHomography:
 
         H, _ = cv2.findHomography(corners, BEV_CORNERS, cv2.RANSAC, 5.0)
         if H is not None:
+            # Assign H, then verify orientation: sometimes the BEV axes
+            # get swapped (x/y) which lays players across the length.
+            # Detect that case by mapping small horizontal/vertical
+            # offsets in image space into BEV and comparing resulting
+            # distances in yards. If the mapped horizontal span
+            # corresponds to the field length rather than width, swap
+            # the BEV axes by pre-multiplying with a permutation matrix.
             self.H = H
+            try:
+                h, w = frame.shape[:2]
+                cx, cy = w / 2.0, h / 2.0
+                dx = max(10, w * 0.1)
+                dy = max(10, h * 0.1)
+                pts = np.array([[[cx - dx, cy]], [[cx + dx, cy]], [[cx, cy - dy]], [[cx, cy + dy]]], dtype=np.float64)
+                bev_pts = cv2.perspectiveTransform(pts, self.H)
+                left_bev  = bev_pts[0][0]
+                right_bev = bev_pts[1][0]
+                top_bev   = bev_pts[2][0]
+                bot_bev   = bev_pts[3][0]
+                width_yd  = abs(right_bev[0] - left_bev[0]) / PIXELS_PER_YD
+                height_yd = abs(bot_bev[1] - top_bev[1]) / PIXELS_PER_YD
+                # If the horizontal image displacement maps to a distance
+                # larger than the real field width, axes are likely swapped.
+                if width_yd > FIELD_W_YD * 0.75 and height_yd < FIELD_W_YD * 0.75:
+                    S = np.array([[0.0, 1.0, 0.0],
+                                  [1.0, 0.0, 0.0],
+                                  [0.0, 0.0, 1.0]], dtype=np.float64)
+                    self.H = S @ self.H
+            except Exception:
+                # Non-fatal: if detection fails, keep original H
+                pass
         else:
             self.H = fallback_H
 
